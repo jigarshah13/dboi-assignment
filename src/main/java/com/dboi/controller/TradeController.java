@@ -4,18 +4,18 @@ import com.dboi.model.Trade;
 import com.dboi.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/dboi")
 public class TradeController {
 
     @Autowired
     private TradeService tradeService;
 
-    @PostMapping("/trade")
+    @RequestMapping(value = "/trade", method = RequestMethod.POST)
     public ResponseEntity<String> storeTrade(final @RequestBody Trade trade) {
         tradeService.storeTrade(trade);
         return ResponseEntity.status(HttpStatus.OK).build();
