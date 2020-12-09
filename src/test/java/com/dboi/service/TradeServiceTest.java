@@ -1,13 +1,16 @@
 package com.dboi.service;
 
+import com.dboi.db.TradeRepository;
 import com.dboi.exception.InvalidMaturityDateException;
 import com.dboi.model.Trade;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -18,6 +21,9 @@ public class TradeServiceTest {
 
     @Autowired
     private TradeService tradeService;
+
+    @MockBean
+    private TradeRepository tradeRepository;
 
     @Test
     public void whenMaturityDateOfTradeIsLTTodayDateThenStoreShouldNotAllowed() {
@@ -35,6 +41,8 @@ public class TradeServiceTest {
         final Trade trade = new Trade();
         trade.setTradeId("T1");
         trade.setMaturityDate(LocalDate.of(2020, 12, LocalDate.now().getDayOfMonth()+1));
+
+        Mockito.when(tradeRepository.save(trade)).thenReturn(trade);
         final boolean isValidDate = tradeService.storeTrade(trade);
         Assert.assertTrue("Maturity date of trade is greater than today date", isValidDate);
     }
