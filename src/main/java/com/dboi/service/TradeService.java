@@ -81,7 +81,7 @@ public class TradeService {
     public void reportCurrentTime() {
         tradeRepository.findAll().stream().forEach(t -> {
             if (!verifyMaturityDate(t)) {
-                log.debug("Changing expiry of "+t.getTradeId());
+                log.debug("Changing expiry of " + t.getTradeId());
                 t.setExpired("Y");
                 tradeRepository.save(t);
             }

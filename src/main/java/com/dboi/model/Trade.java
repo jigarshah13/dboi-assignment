@@ -10,16 +10,27 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "trades")
-@Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Trade {
 
-    @Id private String tradeId;
-    @Column private int version;
-    @Column private String counterPartyId;
-    @Column private String bookId;
-    @Column private LocalDate maturityDate;
-    @Column private LocalDate createdDate;
-    @Column private String expired;
+    @Id
+    private String tradeId;
+    @Column
+    private int version;
+    @Column
+    private String counterPartyId;
+    @Column
+    private String bookId;
+    @Column
+    private LocalDate maturityDate;
+    @Column
+    private LocalDate createdDate;
+    @Column
+    private String expired;
 
     @Override
     public String toString() {

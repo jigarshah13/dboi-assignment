@@ -2,17 +2,13 @@ package com.dboi.controller;
 
 import com.dboi.model.Trade;
 import com.dboi.service.TradeService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -41,6 +37,6 @@ public class TradeControllerTest {
         Mockito.when(tradeService.storeTrade(trade)).thenReturn(trade);
         System.out.println(trade.toString());
         this.mockMvc.perform(MockMvcRequestBuilders.post("/dboi/trade").content(trade.toString()).contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
