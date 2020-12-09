@@ -2,6 +2,7 @@ package com.dboi.model;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,12 +14,12 @@ import java.time.LocalDate;
 public class Trade {
 
     @Id private String tradeId;
-    private int version;
-    private String counterPartyId;
-    private String bookId;
-    private LocalDate maturityDate;
-    private LocalDate createdDate;
-    private boolean expired;
+    @Column private int version;
+    @Column private String counterPartyId;
+    @Column private String bookId;
+    @Column private LocalDate maturityDate;
+    @Column private LocalDate createdDate;
+    @Column private String expired;
 
     @Override
     public String toString() {
@@ -29,7 +30,7 @@ public class Trade {
                 ", \"bookId\":\"" + bookId + '"' +
                 ", \"maturityDate\":\"" + maturityDate + '"' +
                 ", \"createdDate\":\"" + createdDate + '"' +
-                ", \"expired\":" + expired +
+                ", \"expired\":\"" + expired + '"' +
                 '}';
     }
 }

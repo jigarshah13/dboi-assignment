@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/dboi")
 public class TradeController {
@@ -19,5 +21,10 @@ public class TradeController {
     public ResponseEntity<String> storeTrade(final @RequestBody Trade trade) {
         tradeService.storeTrade(trade);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @RequestMapping(value = "/trade", method = RequestMethod.GET)
+    public List<Trade> fetchAllTrades() {
+        return tradeService.getTrades();
     }
 }

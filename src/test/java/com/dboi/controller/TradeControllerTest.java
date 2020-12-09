@@ -37,8 +37,8 @@ public class TradeControllerTest {
     public void storeTrade() throws Exception {
         this.mockMvc = MockMvcBuilders.standaloneSetup(this.tradeController).build();
 
-        final Trade trade = Trade.builder().tradeId("T1").bookId("B1").counterPartyId("C1").expired(false).version(1).maturityDate(LocalDate.now()).createdDate(LocalDate.now()).build();
-        Mockito.when(tradeService.storeTrade(trade)).thenReturn(true);
+        final Trade trade = Trade.builder().tradeId("T1").bookId("B1").counterPartyId("C1").expired("N").version(1).maturityDate(LocalDate.now()).createdDate(LocalDate.now()).build();
+        Mockito.when(tradeService.storeTrade(trade)).thenReturn(trade);
         System.out.println(trade.toString());
         this.mockMvc.perform(MockMvcRequestBuilders.post("/dboi/trade").content(trade.toString()).contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isOk());

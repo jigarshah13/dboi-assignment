@@ -11,7 +11,7 @@
     <groupId>com.dboi</groupId>
     <artifactId>dboi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-   <!-- <packaging>war</packaging>-->
+    <packaging>war</packaging>
     <name>dboi</name>
     <description>Code paring Assignment : DBOI</description>
 
