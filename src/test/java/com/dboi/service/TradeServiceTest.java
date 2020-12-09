@@ -1,8 +1,10 @@
 package com.dboi.service;
 
+import com.dboi.exception.InvalidMaturityDateException;
 import com.dboi.model.Trade;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +24,10 @@ public class TradeServiceTest {
         final Trade trade = new Trade();
         trade.setTradeId("T1");
         trade.setMaturityDate(LocalDate.of(2020, 12, LocalDate.now().getDayOfMonth()-1));
-        final boolean isValidDate = tradeService.storeTrade(trade);
-        Assert.assertFalse("Maturity date of trade is less than today date", isValidDate);
+        InvalidMaturityDateException exception = Assert.assertThrows(InvalidMaturityDateException.class, () -> {
+            tradeService.storeTrade(trade);
+        });
+        Assertions.assertEquals("Maturity date of the trade {"+trade.getTradeId()+"} is less than today date.", exception.getMessage());
     }
 
     @Test
