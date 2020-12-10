@@ -56,3 +56,4 @@ There are couples of validation, we need to provide in the above assignment
 4. Maven is used to build the project.
 5. Used H2 In memory DB to perform DB operations.
 6. Written unit test cases to achieve 100% code coverage.
+7. Performed testing through POSTMAN and through integration test cases written at controller level.
