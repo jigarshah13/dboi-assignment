@@ -45,6 +45,8 @@ There are couples of validation, we need to provide in the above assignment
 3. Mockito
 4. Lombok Project
 5. H2 In memory DB
+6. Spring JPA
+7. IntelliJ IDEA editor
 
 ### **Key Points**
 
