@@ -78,7 +78,7 @@ public class TradeService {
     }
 
     @Scheduled(cron = "0/10 * 0 ? * *")
-    public void reportCurrentTime() {
+    public void validateAndManageExpiry() {
         tradeRepository.findAll().stream().forEach(t -> {
             if (!verifyMaturityDate(t)) {
                 log.debug("Changing expiry of " + t.getTradeId());

@@ -4,10 +4,12 @@ import com.dboi.db.TradeRepository;
 import com.dboi.exception.InvalidMaturityDateException;
 import com.dboi.exception.LowerVersionTradeException;
 import com.dboi.model.Trade;
+import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -76,4 +79,26 @@ public class TradeServiceTest {
         Assert.assertNotNull(persistedTrade);
         Assert.assertEquals(trade.getTradeId(), persistedTrade.getTradeId());
     }
+
+    @Test
+    public void testExpiryManagement() {
+        Mockito.when(tradeRepository.findAll()).thenReturn(dummyTradeList());
+        Mockito.when(tradeRepository.save(ArgumentMatchers.any(Trade.class))).thenReturn(Trade.builder().tradeId("T1").version(1).expired("Y").maturityDate(LocalDate.of(2020, 12, 11)).build());
+        tradeService.validateAndManageExpiry();
+    }
+
+    @Test
+    public void testGetTrades() {
+        Mockito.when(tradeRepository.findAll()).thenReturn(dummyTradeList());
+        List<Trade> trades = tradeService.getTrades();
+        Assertions.assertEquals(2, trades.size());
+    }
+
+    private List<Trade> dummyTradeList() {
+        final List<Trade> trades = Lists.newArrayList();
+        trades.add(Trade.builder().tradeId("T1").version(1).expired("N").maturityDate(LocalDate.of(2020, 12, 9)).build());
+        trades.add(Trade.builder().tradeId("T2").version(1).expired("N").maturityDate(LocalDate.of(2020, 12, 9)).build());
+        return trades;
+    }
+
 }
