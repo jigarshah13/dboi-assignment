@@ -40,7 +40,7 @@ public class TradeControllerIntegrationTest {
                 .counterPartyId("C1")
                 .expired("N")
                 .version(1)
-                .maturityDate(LocalDate.of(2020, 12, LocalDate.now().getDayOfMonth() + 2))
+                .maturityDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth() + 2))
                 .createdDate(LocalDate.now()).build();
 
         // Calling API to store valid trade information

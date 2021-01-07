@@ -45,7 +45,7 @@ public class TradeServiceTest {
     public void whenMaturityDateIsGTOrEqualToTodayDateThenStoreShouldAllowed() {
         final Trade trade = new Trade();
         trade.setTradeId("T1");
-        trade.setMaturityDate(LocalDate.of(2020, 12, LocalDate.now().getDayOfMonth() + 1));
+        trade.setMaturityDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth() + 1));
 
         Mockito.when(tradeRepository.save(trade)).thenReturn(trade);
         final Trade persistedTrade = tradeService.storeTrade(trade);
@@ -58,7 +58,7 @@ public class TradeServiceTest {
         final Trade trade = new Trade();
         trade.setTradeId("T1");
         trade.setVersion(2);
-        trade.setMaturityDate(LocalDate.of(2020, 12, LocalDate.now().getDayOfMonth() + 1));
+        trade.setMaturityDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth() + 1));
         Mockito.when(tradeRepository.findById(trade.getTradeId())).thenReturn(Optional.of(Trade.builder().tradeId("T1").version(3).build()));
         LowerVersionTradeException exception = Assert.assertThrows(LowerVersionTradeException.class, () -> {
             tradeService.storeTrade(trade);
@@ -71,7 +71,7 @@ public class TradeServiceTest {
         final Trade trade = new Trade();
         trade.setTradeId("T1");
         trade.setVersion(4);
-        trade.setMaturityDate(LocalDate.of(2020, 12, LocalDate.now().getDayOfMonth() + 1));
+        trade.setMaturityDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth() + 1));
         Mockito.when(tradeRepository.findById(trade.getTradeId())).thenReturn(Optional.of(Trade.builder().tradeId("T1").version(3).build()));
         Mockito.when(tradeRepository.save(trade)).thenReturn(trade);
 
